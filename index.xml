@@ -6,23 +6,24 @@
     <description>Recent content on bbbbbbb log</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 26 Nov 2021 16:53:35 +0800</lastBuildDate><atom:link href="https://kian98.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 26 Nov 2021 16:53:00 +0800</lastBuildDate><atom:link href="https://kian98.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
-      <link>https://kian98.github.io/about/about/</link>
-      <pubDate>Fri, 26 Nov 2021 16:53:35 +0800</pubDate>
+      <link>https://kian98.github.io/about/</link>
+      <pubDate>Fri, 26 Nov 2021 17:00:46 +0800</pubDate>
       
-      <guid>https://kian98.github.io/about/about/</guid>
-      <description></description>
+      <guid>https://kian98.github.io/about/</guid>
+      <description>研究方向
+ 数据挖掘 知识图谱 ···  </description>
     </item>
     
     <item>
-      <title>Leetcode_log_0</title>
+      <title>Leetcode-剑指Offer-Log-1</title>
       <link>https://kian98.github.io/posts/leetcode_log_0/</link>
       <pubDate>Fri, 26 Nov 2021 16:53:00 +0800</pubDate>
       
       <guid>https://kian98.github.io/posts/leetcode_log_0/</guid>
-      <description></description>
+      <description>刷题刷题！目前第5天</description>
     </item>
     
   </channel>

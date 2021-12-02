@@ -5,6 +5,25 @@
     <link>https://kian98.github.io/tags/</link>
     <description>Recent content in Tags on bbbbbbb log</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://kian98.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Fri, 26 Nov 2021 16:53:00 +0800</lastBuildDate><atom:link href="https://kian98.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode</title>
+      <link>https://kian98.github.io/tags/leetcode/</link>
+      <pubDate>Fri, 26 Nov 2021 16:53:00 +0800</pubDate>
+      
+      <guid>https://kian98.github.io/tags/leetcode/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>剑指Offer</title>
+      <link>https://kian98.github.io/tags/%E5%89%91%E6%8C%87offer/</link>
+      <pubDate>Fri, 26 Nov 2021 16:53:00 +0800</pubDate>
+      
+      <guid>https://kian98.github.io/tags/%E5%89%91%E6%8C%87offer/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
