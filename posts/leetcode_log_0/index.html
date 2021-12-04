@@ -263,7 +263,7 @@
 <p>动态规划方法 <a href="https://labuladong.gitee.io/algo/1/3/">https://labuladong.gitee.io/algo/1/3/</a></p>
 <h3 id="-剑指-offer-42-连续子数组的最大和">⭐️ 剑指 Offer 42. 连续子数组的最大和</h3>
 <p>从暴力计算到动态规划。</p>
-<p>暴力计算：</p>
+<p><strong>暴力计算：</strong></p>
 <ul>
 <li>
 <p>计算每一个sum(i, j)，时间复杂度为O(n^3)（i、j遍历所有，求和遍历i到j）；</p>
@@ -272,7 +272,7 @@
 <p>也可以将sum(i, j)转化为sum(i, j-1)+value_j，时间复杂度为O(n^2)（i遍历所有，j遍历从i到结尾，记录最大值）；</p>
 </li>
 </ul>
-<p>动态规划：</p>
+<p><strong>动态规划：</strong></p>
 <p>如果要以O(n)复杂度解决问题，那么就要在一次遍历过程中，得到<strong>以当前元素为结尾的所有数组的最大值dp[i]</strong>，在此基础上，获得<strong>所有这些最大值的最大值maxValue</strong>。</p>
 <p>而在计算以A元素为起始，以B元素为结尾的数组和后，在计算以B+1元素为结尾的数组和时，只需要在前一个数组和的基础上，加上B+1元素，而前一个数组和（A起始，B结束）必然是小于dp[i]的，因此</p>
 <ul>
@@ -289,6 +289,22 @@
     <span style="color:#66d9ef">return</span> maxValue;
 }
 </code></pre></div><h3 id="剑指-offer-47-礼物的最大价值">剑指 Offer 47. 礼物的最大价值</h3>
+<p>动态规划：</p>
+<p>将到达每格的礼物最大价值记录为dp table。到达每一个格时，当前格的最大价值=max(左边格子的最大价值, 上边格子的最大价值)，因此遍历每一个格子即可，因为没有负值，因此最后取右下角格子的值。需要注意边界的行和列。时间复杂度为O(MN)。</p>
+<p>进一步优化，可以将dp table直接保存在输入的二维数组中。空间复杂度为O(1)。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">maxValue</span>(vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;&amp;</span> grid) {
+    <span style="color:#66d9ef">if</span>(grid.size()<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> row<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;row <span style="color:#f92672">&lt;</span> grid.size(); row<span style="color:#f92672">++</span>){
+        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> col <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;col <span style="color:#f92672">&lt;</span> grid[<span style="color:#ae81ff">0</span>].size(); col<span style="color:#f92672">++</span>){
+            <span style="color:#66d9ef">if</span>(row<span style="color:#f92672">+</span>col <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">continue</span>; 
+            <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (row <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) grid[row][col] <span style="color:#f92672">+=</span> grid[row][col<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>];
+            <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(col <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) grid[row][col] <span style="color:#f92672">+=</span> grid[row<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][col];
+            <span style="color:#66d9ef">else</span> grid[row][col] <span style="color:#f92672">+=</span> max(grid[row<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][col], grid[row][col<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]);
+        }
+    }
+    <span style="color:#66d9ef">return</span> grid[grid.size()<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][grid[<span style="color:#ae81ff">0</span>].size()<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>];
+}
+</code></pre></div><p>可以进一步优化，当M、N较大时，遍历过程中的if判断语句仍然耗时，因此可以将对边界的判断移出来单独计算，两层循环从1开始。</p>
 
 		</section>
 
