@@ -358,6 +358,35 @@
 <h3 id="剑指-offer-22-链表中倒数第k个节点">剑指 Offer 22. 链表中倒数第k个节点</h3>
 <p>设置快慢指针，快指针移动k-1步后，慢指针开始移动。</p>
 <p>需要注意题目是否提及特例，如：k可能为0；k可能超过链表长度；head可能为NULL等。</p>
+<h2 id="day-12-双指针-easy">Day 12. 双指针 (Easy)</h2>
+<h3 id="剑指-offer-25-合并两个排序的链表">剑指 Offer 25. 合并两个排序的链表</h3>
+<p>使用双指针很容易完成。每次取链表中的较小值，当其中一个链表遍历结束，直接与另一链表剩余部分拼接。</p>
+<p>小trick在于构造一个伪头节点，可以涵盖两个链表起始位置以及出现NULL的情况。</p>
+<p>也可以使用递归做法。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">ListNode<span style="color:#f92672">*</span> <span style="color:#a6e22e">mergeTwoLists</span>(ListNode<span style="color:#f92672">*</span> l1, ListNode<span style="color:#f92672">*</span> l2) {
+    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>l1) <span style="color:#66d9ef">return</span> l2;
+    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>l2) <span style="color:#66d9ef">return</span> l1;
+    ListNode<span style="color:#f92672">*</span> ret;
+    <span style="color:#66d9ef">if</span>(l1<span style="color:#f92672">-&gt;</span>val <span style="color:#f92672">&lt;</span> l2<span style="color:#f92672">-&gt;</span>val){
+        ret <span style="color:#f92672">=</span> l1;
+        ret<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> mergeTwoLists(l1<span style="color:#f92672">-&gt;</span>next, l2);
+    }<span style="color:#66d9ef">else</span>{
+        ret <span style="color:#f92672">=</span> l2;
+        ret<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> mergeTwoLists(l1, l2<span style="color:#f92672">-&gt;</span>next);
+    }
+    <span style="color:#66d9ef">return</span> ret;
+}
+</code></pre></div><h3 id="剑指-offer-52-两个链表的第一个公共节点">剑指 Offer 52. 两个链表的第一个公共节点</h3>
+<p>暴力解法，使用哈希表。先遍历并记录链表A，再遍历和查询链表B的元素。时间复杂度为O(M+N)，空间复杂度为O(M)。</p>
+<p><strong>双指针法</strong>。降低空间复杂度至O(1)。</p>
+<p>创建两个指针，分别指向两个链表的头节点，同时开始遍历。当指针遇到链表结尾时，继续从另一个链表头开始遍历，直至两个指针相同。</p>
+<p>分情况证明正确性：</p>
+<ul>
+<li>当两链表相交时，若相交前长度一致，则会在相交的地方停止遍历，若不一致，则会在遍历两链表m+n的长度后停止。</li>
+<li>若两链表不相交，则会停止在链表的尾部NULL（若相同长度则各自停止，若不同则停在另一个链表）。</li>
+</ul>
+<p>可以考虑链表为空的情况。</p>
+<h2 id="day-13-双指针-easy">Day 13. 双指针 (Easy)</h2>
 
 		</section>
 
