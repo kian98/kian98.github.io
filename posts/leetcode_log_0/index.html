@@ -387,6 +387,27 @@
 </ul>
 <p>可以考虑链表为空的情况。</p>
 <h2 id="day-13-双指针-easy">Day 13. 双指针 (Easy)</h2>
+<h3 id="剑指-offer-21-调整数组顺序使奇数位于偶数前面">剑指 Offer 21. 调整数组顺序使奇数位于偶数前面</h3>
+<p>**首尾双指针。**left指针向右移动，right指针向左移动，当left指向偶数切right指向奇数，则swap；</p>
+<p>**快慢双指针。**fast用于查找要调换位置的奇数，slow指向奇数要放的位置，因为进行swap时，fast指向的是奇数，slow前的全是奇数，slow和fast之间的，全部是偶数（因为fast已经经过，所以都被调换到slow前）。</p>
+<h3 id="剑指-offer-57-和为s的两个数字">剑指 Offer 57. 和为s的两个数字</h3>
+<p>若数组为无序，可以使用<strong>hashmap</strong>的思路，记录已有的数字，每次判断是否已存在对应的另一个数字。</p>
+<p>本题为有序数组，因此可以用双指针法。设置前后指针，两边往中间找。</p>
+<h3 id="剑指-offer-58---i-翻转单词顺序">剑指 Offer 58 - I. 翻转单词顺序</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">string <span style="color:#a6e22e">reverseWords</span>(string s) {
+    string ret <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
+    <span style="color:#66d9ef">int</span> beg <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    s <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34; &#34;</span>;
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span>s.size();i<span style="color:#f92672">++</span>){
+        <span style="color:#66d9ef">if</span>(s[i] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39; &#39;</span>){
+            <span style="color:#66d9ef">if</span>(beg<span style="color:#f92672">!=</span>i) ret <span style="color:#f92672">=</span> s.substr(beg, i<span style="color:#f92672">-</span>beg) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">+</span> ret;
+            beg <span style="color:#f92672">=</span> i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;
+        }
+    }
+    <span style="color:#66d9ef">if</span>(ret.size()<span style="color:#f92672">!=</span><span style="color:#ae81ff">0</span>)ret.pop_back();
+    <span style="color:#66d9ef">return</span> ret;
+}
+</code></pre></div><p>无聊的字符串问题。</p>
 
 		</section>
 
