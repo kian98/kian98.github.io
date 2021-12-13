@@ -407,8 +407,63 @@
     <span style="color:#66d9ef">if</span>(ret.size()<span style="color:#f92672">!=</span><span style="color:#ae81ff">0</span>)ret.pop_back();
     <span style="color:#66d9ef">return</span> ret;
 }
-</code></pre></div><p>无聊的字符串问题。</p>
-
+</code></pre></div><h2 id="day-14-搜索与回溯算法-medium">Day .14 搜索与回溯算法 (Medium)</h2>
+<h3 id="剑指-offer-12-矩阵中的路径">剑指 Offer 12. 矩阵中的路径</h3>
+<p>矩阵搜索题，使用DFS+剪枝。</p>
+<p>DFS的思路比较容易想，但剪枝的处理会略微复杂。在矩阵中搜索，需要考虑上、下、左、右四个方向，同时要考虑矩阵边界和已经经过的位置。</p>
+<p>在本题中，保存经过的位置，可以使用'\0&rsquo;替换走过的路径，在进入四个方向的遍历前，置为'\0'，返回后恢复原值，以此节省存储空间。</p>
+<p>此外，由于字符串的开头可能是任意一个位置，因此还需要对矩阵每个位置进行遍历。</p>
+<p>对于M*N的矩阵，字符串长度为K，对矩阵每个位置进行K次递归，时间复杂度为$O(3^K<em>M</em>N) $；递归深度不超过K，空间复杂度为$O(K)$。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">bool</span> exist(vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;&gt;&amp;</span> board, string word) {
+        rows <span style="color:#f92672">=</span> board.size();
+        cols <span style="color:#f92672">=</span> board[<span style="color:#ae81ff">0</span>].size();
+        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> rows; i<span style="color:#f92672">++</span>) {
+            <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> cols; j<span style="color:#f92672">++</span>) {
+                <span style="color:#66d9ef">if</span>(dfs(board, word, i, j, <span style="color:#ae81ff">0</span>)) <span style="color:#66d9ef">return</span> true;
+            }
+        }
+        <span style="color:#66d9ef">return</span> false;
+    }
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> rows, cols;
+    <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">dfs</span>(vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;&gt;&amp;</span> board, string word, <span style="color:#66d9ef">int</span> i, <span style="color:#66d9ef">int</span> j, <span style="color:#66d9ef">int</span> k) {
+        <span style="color:#66d9ef">if</span>(i <span style="color:#f92672">&gt;=</span> rows <span style="color:#f92672">||</span> i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> j <span style="color:#f92672">&gt;=</span> cols <span style="color:#f92672">||</span> j <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> board[i][j] <span style="color:#f92672">!=</span> word[k]) <span style="color:#66d9ef">return</span> false;
+        <span style="color:#66d9ef">if</span>(k <span style="color:#f92672">==</span> word.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">return</span> true;
+        board[i][j] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>;
+        <span style="color:#66d9ef">bool</span> res <span style="color:#f92672">=</span> dfs(board, word, i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, j, k <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">||</span> dfs(board, word, i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, j, k <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">||</span> 
+                      dfs(board, word, i, j <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, k <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">||</span> dfs(board, word, i , j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, k <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+        board[i][j] <span style="color:#f92672">=</span> word[k];
+        <span style="color:#66d9ef">return</span> res;
+    }
+};
+</code></pre></div><h3 id="剑指-offer-13-机器人的运动范围">剑指 Offer 13. 机器人的运动范围</h3>
+<p><strong>DFS+剪枝</strong></p>
+<p>解题思路与上一题相同。在本题中，可以只考虑向下和向右的移动。</p>
+<p><strong>BFS</strong></p>
+<p>也可以借助队列，使用BFS</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> movingCount(<span style="color:#66d9ef">int</span> m, <span style="color:#66d9ef">int</span> n, <span style="color:#66d9ef">int</span> k) {
+        vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;&gt;</span> visited(m, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span>(n, <span style="color:#ae81ff">0</span>));
+        <span style="color:#66d9ef">int</span> res <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        queue<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> que;
+        que.push({ <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span> });
+        <span style="color:#66d9ef">while</span>(que.size() <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
+            vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> x <span style="color:#f92672">=</span> que.front();
+            que.pop();
+            <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> x[<span style="color:#ae81ff">0</span>], j <span style="color:#f92672">=</span> x[<span style="color:#ae81ff">1</span>], si <span style="color:#f92672">=</span> x[<span style="color:#ae81ff">2</span>], sj <span style="color:#f92672">=</span> x[<span style="color:#ae81ff">3</span>];
+            <span style="color:#66d9ef">if</span>(i <span style="color:#f92672">&gt;=</span> m <span style="color:#f92672">||</span> j <span style="color:#f92672">&gt;=</span> n <span style="color:#f92672">||</span> k <span style="color:#f92672">&lt;</span> si <span style="color:#f92672">+</span> sj <span style="color:#f92672">||</span> visited[i][j]) <span style="color:#66d9ef">continue</span>;
+            visited[i][j] <span style="color:#f92672">=</span> true;
+            res<span style="color:#f92672">++</span>;
+            que.push({ i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, j, (i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">?</span> si <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> si <span style="color:#f92672">-</span> <span style="color:#ae81ff">8</span>, sj });
+            que.push({ i, j <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, si, (j <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">?</span> sj <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> sj <span style="color:#f92672">-</span> <span style="color:#ae81ff">8</span> });
+        }
+        <span style="color:#66d9ef">return</span> res;
+    }
+};
+</code></pre></div>
 		</section>
 
 		<div class="post-tags">
